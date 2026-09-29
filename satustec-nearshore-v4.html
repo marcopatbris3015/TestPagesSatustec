@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nearshore Services | Satustec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+<style>
+:root{
+  --navy:#121A2E;
+  --bg:#0A0E1A;
+  --red:#FF3131;
+  --amber:#FF8A5C;
+  --ink:#E9ECF5;
+  --maxw:1180px;
+  /* section tone tokens — default dark, overridden per-section by .tone-light */
+  --sec-bg:#0A0E1A;
+  --sec-bg2:#0E1424;
+  --sec-ink:#E9ECF5;
+  --sec-ink-dim:rgba(233,236,245,.68);
+  --sec-ink-dimmer:rgba(233,236,245,.46);
+  --sec-line:rgba(255,255,255,.10);
+  --sec-card-bg:#0E1424;
+  --sec-card-brd:rgba(255,255,255,.10);
+  --sec-glass-bg:rgba(255,255,255,.045);
+  --sec-glass-brd:rgba(255,255,255,.10);
+}
+.tone-light{
+  --sec-bg:#F2F4F8;
+  --sec-bg2:#FFFFFF;
+  --sec-ink:#121A2E;
+  --sec-ink-dim:#4A5268;
+  --sec-ink-dimmer:#7B8296;
+  --sec-line:#E1E5EE;
+  --sec-card-bg:#FFFFFF;
+  --sec-card-brd:#E1E5EE;
+  --sec-glass-bg:rgba(18,26,46,.035);
+  --sec-glass-brd:rgba(18,26,46,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:500}
+.eyebrow.soft{color:var(--sec-ink-dimmer)}
+h2.sec{font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin:14px 0 0;text-wrap:balance;color:var(--sec-ink)}
+p.lede{font-size:17px;color:var(--sec-ink-dim);max-width:58ch;margin-top:16px}
+
+.glass{
+  background:linear-gradient(160deg, var(--sec-glass-bg), transparent);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid var(--sec-glass-brd);
+}
+.grad-text{background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(10,14,26,.82);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.10)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{color:#fff;font-weight:800;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center}
+.brand .mark{display:inline-block;width:22px;height:13px;margin:0 1px;background:
+  linear-gradient(115deg,transparent 44%,var(--red) 44%,var(--red) 62%,transparent 62%),
+  linear-gradient(115deg,transparent 14%,var(--red) 14%,var(--red) 32%,transparent 32%),
+  linear-gradient(115deg,transparent 74%,var(--red) 74%,var(--red) 92%,transparent 92%)}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{color:rgba(255,255,255,.66);font-size:13.5px;font-weight:500}
+.navlinks a:hover{color:#fff}
+.navlinks a.on{color:#fff;position:relative}
+.navlinks a.on::after{content:"";position:absolute;left:0;right:0;bottom:-24px;height:2px;background:var(--red)}
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border:0;border-radius:3px;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#e51f1f;transform:translateY(-1px)}
+.btn.sm{padding:10px 18px;font-size:13px}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.07)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:var(--bg)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 900px 560px at 78% -10%, rgba(255,49,49,.24), transparent 60%), radial-gradient(ellipse 700px 500px at 0% 100%, rgba(255,138,92,.12), transparent 55%);will-change:transform}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:64px;align-items:center;padding:88px 0 96px;position:relative;z-index:1;perspective:1400px}
+h1{font-size:clamp(34px,4.7vw,56px);font-weight:800;line-height:1.05;letter-spacing:-.03em;margin-top:18px;text-wrap:balance}
+.typed-word{color:var(--red);display:inline-block;min-width:9.6em;white-space:nowrap;text-align:left}
+.typed-cursor{color:var(--red);font-weight:400}
+.hero p{color:rgba(233,236,245,.72);font-size:17.5px;margin-top:22px;max-width:52ch}
+.hero-cta{display:flex;gap:14px;margin-top:34px;flex-wrap:wrap}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(233,236,245,.42);margin-top:22px;letter-spacing:.02em}
+
+/* clock — starts level, gains a slight live tilt as you scroll past the hero */
+.tilt-wrap{transform-style:preserve-3d}
+.clock{border-radius:10px;padding:26px;transform-origin:60% 40%;box-shadow:0 30px 60px -20px rgba(0,0,0,.5);position:relative;animation:breathe 4.5s ease-in-out infinite}
+@keyframes breathe{
+  0%,100%{box-shadow:0 30px 60px -20px rgba(0,0,0,.5), 0 0 0 1px rgba(255,49,49,.10)}
+  50%{box-shadow:0 30px 60px -20px rgba(0,0,0,.5), 0 0 32px 2px rgba(255,49,49,.22)}
+}
+.clock-head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.10);padding-bottom:14px;margin-bottom:20px}
+.clock-head span{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.live{display:flex;align-items:center;gap:7px;color:var(--red)!important}
+.live i{width:6px;height:6px;border-radius:50%;background:var(--red);display:inline-block;animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.cell{transition:background .5s ease}
+.cell.now{animation:nowpulse 1.6s ease-in-out infinite}
+@keyframes nowpulse{0%,100%{outline-color:var(--red)}50%{outline-color:rgba(255,49,49,.35)}}
+.city{display:grid;grid-template-columns:118px 1fr;gap:14px;align-items:center;padding:11px 0}
+.city + .city{border-top:1px solid rgba(255,255,255,.08)}
+.city .who{font-size:12.5px;font-weight:600}
+.city .who b{display:block;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:15px;color:#fff;letter-spacing:-.01em}
+.city .who span{font-size:10.5px;color:rgba(255,255,255,.45);font-weight:500}
+.bar{display:flex;gap:2px;height:26px}
+.cell{flex:1;background:rgba(255,255,255,.08);border-radius:1px}
+.cell.work{background:rgba(255,255,255,.82)}
+.cell.work.you{background:var(--red)}
+.cell.now{outline:2px solid var(--red);outline-offset:1px;position:relative;z-index:2}
+.axis{display:flex;gap:2px;margin:4px 0 0 132px;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.32)}
+.axis span{flex:1;text-align:center}
+.axis span:nth-child(odd){visibility:hidden}
+.clock-foot{margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.10);display:flex;gap:26px;flex-wrap:wrap}
+.clock-foot div{font-size:11.5px;color:rgba(255,255,255,.58);line-height:1.4}
+.clock-foot b{display:block;font-family:'JetBrains Mono',monospace;font-size:22px;color:#fff;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.clock-foot b.dim{color:rgba(255,255,255,.32)}
+
+/* elevated card treatment — used by stat tiles, service cards, support and industry tiles */
+.panel{
+  border-radius:14px;
+  background:linear-gradient(165deg, var(--sec-card-bg), var(--sec-bg));
+  border:1px solid var(--sec-card-brd);
+  box-shadow:0 14px 32px -22px rgba(0,0,0,.4);
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  position:relative;overflow:hidden;
+}
+.panel:hover{transform:translateY(-5px);box-shadow:0 22px 46px -18px rgba(255,49,49,.26)}
+.panel.accent-top{border-top:2px solid var(--red)}
+.panel.accent-top:hover{border-top-color:var(--amber)}
+.ghost-num{position:absolute;top:-14px;right:8px;font-family:'JetBrains Mono',monospace;font-size:92px;font-weight:800;color:var(--sec-ink);opacity:.05;line-height:1;pointer-events:none;user-select:none}
+
+/* proof strip */
+.proof{padding:44px 0}
+.proof-in{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:24px 22px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:12.5px;color:var(--sec-ink-dimmer);font-weight:600;margin-top:4px;display:block}
+
+section{padding:86px 0;background:var(--sec-bg);color:var(--sec-ink)}
+section.tight{padding:64px 0}
+.sec-head{max-width:66ch}
+.rule{height:1px;background:var(--sec-line)}
+
+/* comparison */
+.cmp{width:100%;border-collapse:collapse;margin-top:40px;font-size:14px;border-radius:10px;overflow:hidden}
+.cmp th,.cmp td{text-align:left;padding:16px 18px;border-bottom:1px solid var(--sec-line);vertical-align:top}
+.cmp thead th{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--sec-ink-dimmer);font-weight:500;border-bottom:2px solid var(--sec-line)}
+.cmp .ours{background:linear-gradient(160deg, rgba(255,49,49,.14), rgba(255,49,49,.03))}
+.cmp thead .ours{background:rgba(255,49,49,.16);color:var(--sec-ink)}
+.cmp td.ours{font-weight:600;color:var(--sec-ink)}
+.cmp .ok{color:#0f9d58}
+.tone-dark .cmp .ok{color:#4ADE80}
+.cmp .no{color:var(--sec-ink-dimmer)}
+.footnote{font-size:11.5px;color:var(--sec-ink-dimmer);margin-top:14px;font-family:'JetBrains Mono',monospace;line-height:1.6}
+
+/* services — bento */
+.bento{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:16px;margin-top:44px}
+.card{padding:34px 30px;display:flex;flex-direction:column}
+.card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;color:var(--sec-ink)}
+.card p{font-size:14.5px;color:var(--sec-ink-dim)}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:14px}
+.card ul{list-style:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--sec-line)}
+.card li{font-size:13px;color:var(--sec-ink-dim);padding-left:16px;position:relative;margin-bottom:7px}
+.card li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1.5px;background:var(--red)}
+.aside{margin-top:26px;padding:20px 24px;border-radius:8px;font-size:14px;color:var(--sec-ink-dim);max-width:80ch}
+.aside b{color:var(--sec-ink)}
+
+/* support */
+.support{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px}
+.support div{padding:26px}
+.support h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--sec-ink)}
+.support p{font-size:14px;color:var(--sec-ink-dim)}
+
+/* bilingual callout */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:10px}
+.quotebox{padding:30px;border-radius:12px}
+.quotebox p{font-size:15.5px;line-height:1.6;color:var(--sec-ink)}
+.quotebox .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:14px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:46px}
+.step{position:relative;padding-top:26px;border-top:1px solid var(--sec-line)}
+.step .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:700;position:absolute;top:-9px;background:var(--sec-bg);padding-right:12px}
+.step h3{font-size:17px;font-weight:700;margin-bottom:9px;color:var(--sec-ink)}
+.step p{font-size:14.5px;color:var(--sec-ink-dim)}
+.step .when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sec-ink-dimmer);margin-top:12px;display:block}
+
+/* industries */
+.inds{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.ind{padding:22px 20px}
+.ind h3{font-size:15.5px;font-weight:700;margin-bottom:7px;color:var(--sec-ink)}
+.ind p{font-size:13.5px;color:var(--sec-ink-dim)}
+
+/* faq */
+.faq{margin-top:40px;border-top:1px solid var(--sec-line)}
+details{border-bottom:1px solid var(--sec-line)}
+summary{cursor:pointer;padding:20px 40px 20px 0;font-weight:600;font-size:15.5px;list-style:none;position:relative;color:var(--sec-ink)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:17px;font-size:22px;color:var(--red);font-weight:400}
+details[open] summary::after{content:"\2013"}
+details p{padding:0 0 22px;font-size:14.5px;color:var(--sec-ink-dim);max-width:74ch}
+
+/* cta */
+.cta{position:relative;overflow:hidden;background:radial-gradient(ellipse 700px 420px at 15% 0%, rgba(255,49,49,.18), transparent 60%), var(--bg);padding:76px 0;color:var(--ink)}
+.cta-grid{display:grid;grid-template-columns:1fr .9fr;gap:56px;align-items:start;position:relative;z-index:1}
+.cta h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.1;color:#fff}
+.cta p{color:rgba(233,236,245,.7);margin-top:16px;font-size:16px;max-width:46ch}
+.form{padding:28px;border-radius:12px}
+.form label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.form input,.form select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:4px;color:#fff;padding:11px 13px;font-family:inherit;font-size:14px;margin-bottom:16px}
+.form input::placeholder{color:rgba(255,255,255,.3)}
+.form .btn{width:100%;margin-top:4px}
+.form .fine{font-size:11px;color:rgba(255,255,255,.4);margin-top:14px;line-height:1.5}
+
+footer{background:#060810;color:rgba(255,255,255,.45);padding:34px 0;font-size:12.5px;border-top:1px solid rgba(255,255,255,.10)}
+.foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+@media (max-width:960px){
+  .hero-grid,.cta-grid,.split{grid-template-columns:1fr;gap:40px}
+  .hero-grid{padding:64px 0 70px}
+  .proof-in{grid-template-columns:repeat(2,1fr)}
+  .support,.steps,.bento{grid-template-columns:1fr}
+  .inds{grid-template-columns:repeat(2,1fr)}
+  .navlinks{display:none}
+}
+@media (max-width:680px){
+  .wrap{padding:0 20px}
+  .inds{grid-template-columns:1fr}
+  .city{grid-template-columns:96px 1fr;gap:10px}
+  .axis{margin-left:106px}
+  .cmp{font-size:12.5px}
+  .cmp th,.cmp td{padding:12px 10px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="brand" aria-label="Satustec Systems">SATUST<span class="mark" aria-hidden="true"></span>C</a>
+    <nav class="navlinks">
+      <a href="#">Dynamics 365</a>
+      <a href="#">Azure</a>
+      <a href="#">Copilot</a>
+      <a href="#">Power Platform</a>
+      <a href="#" class="on">Nearshore</a>
+    </nav>
+    <a href="#talk" class="btn sm">Talk to us</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow" id="heroGlow"></div>
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Nearshore delivery &middot; already live in production</span>
+      <h1>Built for <span class="typed-word" id="typedWord"></span> teams. <span class="grad-text">Now make it earn its keep.</span></h1>
+      <p>Assessments, enhancement projects, and L1&ndash;L3 support for Dynamics 365, Power Platform, and Azure environments that are already live &mdash; delivered in your time zone, in English and Spanish, at about 40% of a U.S. partner's rate.</p>
+      <div class="hero-cta">
+        <a href="#talk" class="btn">Book a 30-minute scoping call</a>
+        <a href="#compare" class="btn ghost">See how it compares</a>
+      </div>
+      <p class="hero-note">20+ years delivering Microsoft solutions across North America.</p>
+    </div>
+
+    <div class="tilt-wrap">
+      <div class="clock glass" id="clock">
+        <div class="clock-head">
+          <span>Working-hour overlap</span>
+          <span class="live"><i></i> Live</span>
+        </div>
+        <div class="city">
+          <div class="who">Your team<b id="t-us">--:--</b><span>Houston, TX</span></div>
+          <div class="bar" id="bar-us"></div>
+        </div>
+        <div class="city">
+          <div class="who">Satustec<b id="t-mx">--:--</b><span>Delivery team, CT</span></div>
+          <div class="bar" id="bar-mx"></div>
+        </div>
+        <div class="city">
+          <div class="who">Offshore<b id="t-in">--:--</b><span>Bengaluru, IN</span></div>
+          <div class="bar" id="bar-in"></div>
+        </div>
+        <div class="axis" id="axis"></div>
+        <div class="clock-foot">
+          <div><b id="ov-mx">&mdash;</b>hrs of daily overlap<br>with your Satustec team</div>
+          <div><b class="dim" id="ov-in">&mdash;</b>hrs of daily overlap<br>with a 9&ndash;6 offshore team</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROOF (light) -->
+<div class="proof tone-light" style="background:var(--sec-bg)">
+  <div class="wrap proof-in reveal-group">
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="20" data-suffix="+">0+</b><span>Years delivering Microsoft solutions</span></div>
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="4" data-suffix="">0</b><span>Solutions Partner designations</span></div>
+    <div class="panel accent-top stat reveal-item" style="display:flex;flex-direction:column;justify-content:center"><b>L1&ndash;L3</b><span>Full support coverage in Central Time</span></div>
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="100" data-suffix="%">0%</b><span>Bilingual consultants (EN/ES)</span></div>
+  </div>
+</div>
+
+<!-- SERVICES (dark) -->
+<section class="tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">What we deliver</span>
+      <h2 class="sec">Diagnose it. Fix it. Keep it running.</h2>
+      <p class="lede">Three engagements for a system that's already live. Take one, or take them in order &mdash; most companies start with the assessment because it's the cheapest way to find out whether the problem is the software, the configuration, or the process around it.</p>
+    </div>
+
+    <div class="bento reveal-group">
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">01</span>
+        <span class="tag">Diagnose</span>
+        <h3>Assessment</h3>
+        <p>A fixed-fee, two-to-four week review of a live environment that isn't delivering what it was supposed to. We separate what's genuinely a product limitation from what's a configuration decision someone made under deadline pressure two years ago.</p>
+        <ul>
+          <li>Configuration reviewed against how the business actually runs</li>
+          <li>Integration and data-quality findings</li>
+          <li>License spend versus license usage</li>
+          <li>Adoption gaps by role and site</li>
+          <li>Prioritized remediation roadmap with effort and cost</li>
+        </ul>
+      </div>
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">02</span>
+        <span class="tag">Improve</span>
+        <h3>Enhancement projects</h3>
+        <p>Scoped work on the environment you already have: remediation of what the assessment found, continuous improvement, and the custom development that got cut from the original scope to hit the go-live date.</p>
+        <ul>
+          <li>Reconfiguration and process redesign</li>
+          <li>Custom development and extensions</li>
+          <li>Integrations to WMS, MES, EDI, and legacy systems</li>
+          <li>Power BI reporting and Power Apps builds</li>
+        </ul>
+      </div>
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">03</span>
+        <span class="tag">Run</span>
+        <h3>Managed support</h3>
+        <p>Take one tier or all three. Your internal team stops being the help desk and gets back to the work that moves the business.</p>
+        <ul>
+          <li><b>L1</b> &mdash; user requests, access, how-to</li>
+          <li><b>L2</b> &mdash; configuration issues, data fixes</li>
+          <li><b>L3</b> &mdash; code-level defects, integrations</li>
+          <li>Written SLAs by severity</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="aside glass reveal-up"><b>Not live yet?</b> Then this isn't the right page. Nearshore is for environments already in production &mdash; if you're selecting or implementing a platform for the first time, start with <a href="#" style="border-bottom:1px solid var(--red)">Dynamics 365</a> and we'll take it from there.</p>
+  </div>
+</section>
+
+<!-- COMPARISON (light) -->
+<section id="compare" class="tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">The trade-off, honestly</span>
+      <h2 class="sec">Who fixes a system that's already live?</h2>
+      <p class="lede">Usually there are three candidates: the partner who built it, an offshore vendor, or your own team on top of their day job. Here's the honest trade-off.</p>
+    </div>
+
+    <table class="cmp reveal-up">
+      <thead>
+        <tr>
+          <th></th>
+          <th>The partner who implemented it</th>
+          <th>Offshore outsourcer</th>
+          <th class="ours">Satustec Nearshore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Cost of post-go-live work</th>
+          <td class="no">Premium change-order rates</td>
+          <td class="no">Lowest rate, highest rework</td>
+          <td class="ours ok">&asymp;60% below U.S. partner rates</td>
+        </tr>
+        <tr>
+          <th>Objectivity about the current build</th>
+          <td class="no">Reviewing their own decisions</td>
+          <td class="no">No context on why it was built that way</td>
+          <td class="ours ok">Independent, with no prior work to defend</td>
+        </tr>
+        <tr>
+          <th>Overlap with your day</th>
+          <td class="no">Full</td>
+          <td class="no">1&ndash;2 hrs, or someone works nights</td>
+          <td class="ours ok">Full &mdash; same time zone</td>
+        </tr>
+        <tr>
+          <th>Escalation at 3 p.m. your time</th>
+          <td class="no">Answered</td>
+          <td class="no">Queued until tomorrow</td>
+          <td class="ours ok">Answered</td>
+        </tr>
+        <tr>
+          <th>Language on the plant floor</th>
+          <td class="no">English only</td>
+          <td class="no">English, with idiom friction</td>
+          <td class="ours ok">English or Spanish, by audience</td>
+        </tr>
+        <tr>
+          <th>Microsoft designations</th>
+          <td class="no">Varies</td>
+          <td class="no">Varies</td>
+          <td class="ours ok">Business Apps &middot; Data &amp; AI &middot; Modern Work &middot; Infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Cost comparison is directional, based on blended senior-consultant rates in the TX and CA markets. We'll model your specific scope on the scoping call.</p>
+  </div>
+</section>
+
+<!-- BILINGUAL (dark) -->
+<section class="tight tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">A cause most assessments miss</span>
+      <h2 class="sec">Sometimes the system isn't broken. It's just not being used.</h2>
+    </div>
+    <div class="split">
+      <p class="lede reveal-up" style="margin-top:0">Across manufacturing, food and beverage, agriculture, and logistics in Texas and California, a large share of the supervisors, warehouse leads, and line operators who have to <em>use</em> the system every day work in Spanish. When the original rollout trained them in English, the result looks like a software failure but isn't one: transactions get entered late or in batches, workarounds harden into habit, and shadow spreadsheets quietly become the real system of record.<br><br>We interview, test, and retrain in whichever language the room speaks, and write documentation in both.</p>
+      <div class="quotebox glass reveal-up">
+        <span class="lbl">What that changes</span>
+        <p><strong>Diagnosis</strong> &mdash; you find out what people actually do instead of what the process document says.<br><br>
+        <strong>Retraining</strong> &mdash; adoption recovers in weeks, often without touching the code.<br><br>
+        <strong>Data quality</strong> &mdash; reporting stops lying to you once the floor enters transactions the way the system expects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT (light) -->
+<section class="tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow">Support, backed by data</span>
+      <h2 class="sec">Your hours shouldn't be spent re-diagnosing a solved problem.</h2>
+    </div>
+    <div class="support reveal-group">
+      <div class="panel accent-top reveal-item">
+        <span class="ghost-num">2K+</span>
+        <h3>2,000+ resolved cases</h3>
+        <p>Two decades of real Microsoft support cases, indexed. Common issues get matched and fixed, not investigated from zero on your dime.</p>
+      </div>
+      <div class="panel accent-top reveal-item">
+        <h3>AI-assisted triage</h3>
+        <p>Level 1 requests are triaged by an AI agent before a consultant picks them up &mdash; faster first response, more contracted hours on the hard problems.</p>
+      </div>
+      <div class="panel accent-top reveal-item">
+        <h3>SLAs and a named escalation path</h3>
+        <p>Written response and resolution targets by severity. Answered by a person who was on yesterday's call.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES (dark) -->
+<section class="tight tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Built for operators, not just IT</span>
+      <h2 class="sec">We've been on the plant floor, not just in the admin console.</h2>
+    </div>
+    <div class="inds reveal-group">
+      <div class="ind panel accent-top reveal-item"><h3>Discrete manufacturing</h3><p>Production scheduling, shop-floor data capture, costing accuracy, MES-to-ERP integration.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>Food &amp; beverage</h3><p>Lot traceability, recall readiness, yield variance, catch-weight handling.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>Agriculture</h3><p>Grower settlements, seasonal labor cost, packhouse throughput, inventory by grade.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>Logistics &amp; 3PL</h3><p>WMS integration, billing accuracy per client contract, real-time cost-to-serve.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO START (light) -->
+<section class="tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Getting started</span>
+      <h2 class="sec">Find out if we're any good before you hand us the environment.</h2>
+      <p class="lede">You've already been through one vendor relationship on this system. The first engagement here is deliberately small, fixed-fee, and useful even if it's the only one you ever buy from us.</p>
+    </div>
+    <div class="steps reveal-group">
+      <div class="step reveal-item">
+        <span class="n">STEP 01</span>
+        <h3>Scoping call</h3>
+        <p>Thirty minutes on what your environment isn't doing, what your team is working around, and how long it's been that way.</p>
+        <span class="when">Day 0</span>
+      </div>
+      <div class="step reveal-item">
+        <span class="n">STEP 02</span>
+        <h3>Fixed-fee assessment</h3>
+        <p>Two to four weeks, a defined price, and a written findings-and-remediation roadmap at the end.</p>
+        <span class="when">Weeks 1&ndash;4</span>
+      </div>
+      <div class="step reveal-item">
+        <span class="n">STEP 03</span>
+        <h3>Remediate, or run it</h3>
+        <p>If the findings earned it, we execute the first block of fixes against the roadmap &mdash; or pick up L1&ndash;L3 support.</p>
+        <span class="when">From week 5</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (dark) -->
+<section class="tight tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Before you ask</span>
+      <h2 class="sec">The questions procurement always sends back.</h2>
+    </div>
+    <div class="faq reveal-up">
+      <details open>
+        <summary>Where is the team based, and who do we contract with?</summary>
+        <p>Satustec is a U.S. company headquartered in Houston, Texas. You contract with Satustec, you're invoiced by Satustec, and you escalate to Satustec. Our delivery center operates in Central Time from Mexico.</p>
+      </details>
+      <details>
+        <summary>How do you handle data security and IP ownership?</summary>
+        <p>All work product and IP transfer to you on payment, written into the master agreement. Consultants sign NDAs and work inside your tenant under your access controls.</p>
+      </details>
+      <details>
+        <summary>Can you work alongside the partner who implemented our system?</summary>
+        <p>Yes, and it's common. We define the RACI in week one so nothing falls between the two teams &mdash; and we don't require you to end that relationship to work with us.</p>
+      </details>
+      <details>
+        <summary>Which products do you cover?</summary>
+        <p>Dynamics 365 &mdash; Finance, Supply Chain Management, Business Central, Sales, Customer Service, Field Service, Commerce &mdash; plus Power Platform, Azure, Microsoft 365, and Copilot.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="talk">
+  <div class="wrap cta-grid">
+    <div class="reveal-up">
+      <span class="eyebrow">Next step</span>
+      <h2>Tell us what your system isn't doing.</h2>
+      <p>Thirty minutes, no deck. You'll leave with a point of view on your environment and a cost range you can take to your CFO &mdash; even if you don't move forward with us.</p>
+      <p class="hero-note" style="margin-top:26px">801 Travis Street, Houston, TX 77002 &nbsp;&middot;&nbsp; +1 888 249 6780</p>
+    </div>
+    <div class="form glass reveal-up">
+      <label for="f1">Work email</label>
+      <input id="f1" type="email" placeholder="you@company.com">
+      <label for="f2">Company</label>
+      <input id="f2" type="text" placeholder="Company name">
+      <label for="f3">What do you need help with?</label>
+      <select id="f3">
+        <option>An assessment of a live environment</option>
+        <option>Enhancements or custom development</option>
+        <option>L1 / L2 / L3 support</option>
+        <option>Integration work</option>
+        <option>Something else</option>
+      </select>
+      <button class="btn" type="button">Book the scoping call</button>
+      <p class="fine">We'll reply within one business day. No sequence, no drip &mdash; one human, one reply.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>&copy; 2026 Satustec LLC &middot; Houston, TX</span>
+    <span>Microsoft Solutions Partner &mdash; Business Applications &middot; Data &amp; AI &middot; Modern Work &middot; Infrastructure</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var ZONES=[
+    {id:'us',tz:'America/Chicago',start:8,end:18,you:true},
+    {id:'mx',tz:'America/Mexico_City',start:8,end:18},
+    {id:'in',tz:'Asia/Kolkata',start:9,end:18}
+  ];
+  function hourIn(tz,d){return parseInt(new Intl.DateTimeFormat('en-US',{timeZone:tz,hour:'numeric',hour12:false}).format(d),10)%24}
+  function timeIn(tz,d){return new Intl.DateTimeFormat('en-US',{timeZone:tz,hour:'numeric',minute:'2-digit',second:'2-digit',hour12:true}).format(d)}
+  function render(){
+    var now=new Date(), hNow=hourIn('America/Chicago',now), base=new Date(now.getTime()-hNow*3600000), list=[];
+    for(var i=0;i<24;i++) list.push(new Date(base.getTime()+i*3600000));
+    var work={};
+    ZONES.forEach(function(z){
+      var bar=document.getElementById('bar-'+z.id); if(!bar) return;
+      bar.innerHTML=''; work[z.id]=[];
+      list.forEach(function(d,i){
+        var h=hourIn(z.tz,d), on=h>=z.start&&h<z.end;
+        work[z.id].push(on);
+        var c=document.createElement('div');
+        c.className='cell'+(on?' work':'')+(on&&z.you?' you':'')+(i===hNow?' now':'');
+        bar.appendChild(c);
+      });
+      var el=document.getElementById('t-'+z.id); if(el) el.textContent=timeIn(z.tz,now);
+    });
+    var a=0,b=0;
+    for(var i=0;i<24;i++){ if(work.us[i]&&work.mx[i])a++; if(work.us[i]&&work.in[i])b++; }
+    document.getElementById('ov-mx').textContent=a;
+    document.getElementById('ov-in').textContent=b;
+    var axis=document.getElementById('axis');
+    if(axis&&!axis.childElementCount){
+      for(var j=0;j<24;j++){var sp=document.createElement('span');sp.textContent=(j%12===0?12:j%12)+(j<12?'a':'p');axis.appendChild(sp);}
+    }
+  }
+  render(); setInterval(render,1000);
+})();
+
+/* typed cycling vertical word — grounded in Satustec's real 4 verticals */
+try{
+  new Typed('#typedWord',{
+    strings:['manufacturing','food & beverage','agriculture','logistics'],
+    typeSpeed:42, backSpeed:26, backDelay:1600, loop:true,
+    cursorChar:'|', smartBackspace:true
+  });
+}catch(e){
+  document.getElementById('typedWord') && (document.getElementById('typedWord').textContent='manufacturing');
+}
+
+try{
+  gsap.registerPlugin(ScrollTrigger);
+
+  /* animated stat counters */
+  document.querySelectorAll('.count').forEach(function(el){
+    var to=parseFloat(el.dataset.to), suffix=el.dataset.suffix||'', obj={val:0};
+    ScrollTrigger.create({
+      trigger:el, start:'top 90%', once:true,
+      onEnter:function(){
+        gsap.to(obj,{val:to,duration:1.3,ease:'power2.out',onUpdate:function(){el.textContent=Math.round(obj.val)+suffix;}});
+      }
+    });
+  });
+
+  /* scroll-reveal: single elements fade + rise into place */
+  document.querySelectorAll('.reveal-up').forEach(function(el){
+    gsap.set(el,{opacity:0,y:28});
+    ScrollTrigger.create({
+      trigger:el, start:'top 88%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,y:0,duration:.75,ease:'power2.out'}); }
+    });
+  });
+
+  /* scroll-reveal: grouped siblings stagger in together */
+  document.querySelectorAll('.reveal-group').forEach(function(group){
+    var items=group.querySelectorAll('.reveal-item');
+    if(!items.length) return;
+    gsap.set(items,{opacity:0,y:26});
+    ScrollTrigger.create({
+      trigger:group, start:'top 85%', once:true,
+      onEnter:function(){ gsap.to(items,{opacity:1,y:0,duration:.65,ease:'power2.out',stagger:.11}); }
+    });
+  });
+
+  /* hero visual: starts level (readable at a glance), gains a subtle live tilt as you scroll past the hero */
+  gsap.set('.tilt-wrap',{transformPerspective:1400,rotateX:0,rotateY:0,scale:1,transformOrigin:'60% 40%'});
+  ScrollTrigger.create({
+    trigger:'.hero', start:'top top', end:'bottom top', scrub:.6,
+    onUpdate:function(self){
+      gsap.set('.tilt-wrap',{rotateX:-8*self.progress,rotateY:6*self.progress,scale:1-.03*self.progress});
+    }
+  });
+
+  /* hero background glow drifts slower than scroll — depth */
+  gsap.to('#heroGlow',{
+    yPercent:18, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+}catch(e){}
+
+/* hero particle field, connected nodes */
+(function(){
+  var canvas=document.getElementById('particles');
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.clientWidth*devicePixelRatio;canvas.height=canvas.clientHeight*devicePixelRatio;}
+  resize(); window.addEventListener('resize',resize);
+  var N=60;
+  var pts=Array.from({length:N},function(){return{
+    x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+    vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25, r:(Math.random()*1.4+.6)*devicePixelRatio
+  };});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<N;i++){
+      var p=pts[i];
+      if(!reduce){p.x+=p.vx;p.y+=p.vy;}
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+      for(var j=i+1;j<N;j++){
+        var q=pts[j], dx=p.x-q.x, dy=p.y-q.y, d=Math.sqrt(dx*dx+dy*dy), max=140*devicePixelRatio;
+        if(d<max){
+          ctx.strokeStyle='rgba(255,49,49,'+(0.12*(1-d/max))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
+        }
+      }
+      ctx.fillStyle='rgba(255,255,255,.55)';
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>

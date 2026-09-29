@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Food &amp; Beverage Nearshore | Satustec</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
+<style>
+:root{
+  --navy:#121A2E;
+  --bg:#0A0E1A;
+  --red:#FF3131;
+  --amber:#FF8A5C;
+  --ink:#E9ECF5;
+  --maxw:1180px;
+  --sec-bg:#0A0E1A;
+  --sec-bg2:#0E1424;
+  --sec-ink:#E9ECF5;
+  --sec-ink-dim:rgba(233,236,245,.68);
+  --sec-ink-dimmer:rgba(233,236,245,.46);
+  --sec-line:rgba(255,255,255,.10);
+  --sec-card-bg:#0E1424;
+  --sec-card-brd:rgba(255,255,255,.10);
+  --sec-glass-bg:rgba(255,255,255,.045);
+  --sec-glass-brd:rgba(255,255,255,.10);
+}
+.tone-light{
+  --sec-bg:#F2F4F8;
+  --sec-bg2:#FFFFFF;
+  --sec-ink:#121A2E;
+  --sec-ink-dim:#4A5268;
+  --sec-ink-dimmer:#7B8296;
+  --sec-line:#E1E5EE;
+  --sec-card-bg:#FFFFFF;
+  --sec-card-brd:#E1E5EE;
+  --sec-glass-bg:rgba(18,26,46,.035);
+  --sec-glass-brd:rgba(18,26,46,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Montserrat',system-ui,-apple-system,sans-serif;color:var(--ink);background:var(--bg);-webkit-font-smoothing:antialiased;line-height:1.55;overflow-x:hidden}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);font-weight:500}
+.eyebrow.soft{color:var(--sec-ink-dimmer)}
+h2.sec{font-size:clamp(28px,3.6vw,42px);font-weight:800;letter-spacing:-.02em;line-height:1.12;margin:14px 0 0;text-wrap:balance;color:var(--sec-ink)}
+p.lede{font-size:17px;color:var(--sec-ink-dim);max-width:58ch;margin-top:16px}
+
+.glass{
+  background:linear-gradient(160deg, var(--sec-glass-bg), transparent);
+  backdrop-filter:blur(18px) saturate(140%);
+  -webkit-backdrop-filter:blur(18px) saturate(140%);
+  border:1px solid var(--sec-glass-brd);
+}
+.grad-text{background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* nav */
+header.nav{position:sticky;top:0;z-index:50;background:rgba(10,14,26,.82);backdrop-filter:saturate(160%) blur(14px);border-bottom:1px solid rgba(255,255,255,.10)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{color:#fff;font-weight:800;font-size:20px;letter-spacing:-.01em;display:flex;align-items:center}
+.brand .mark{display:inline-block;width:22px;height:13px;margin:0 1px;background:
+  linear-gradient(115deg,transparent 44%,var(--red) 44%,var(--red) 62%,transparent 62%),
+  linear-gradient(115deg,transparent 14%,var(--red) 14%,var(--red) 32%,transparent 32%),
+  linear-gradient(115deg,transparent 74%,var(--red) 74%,var(--red) 92%,transparent 92%)}
+.navlinks{display:flex;gap:26px;align-items:center}
+.navlinks a{color:rgba(255,255,255,.66);font-size:13.5px;font-weight:500}
+.navlinks a:hover{color:#fff}
+.navlinks a.on{color:#fff;position:relative}
+.navlinks a.on::after{content:"";position:absolute;left:0;right:0;bottom:-24px;height:2px;background:var(--red)}
+.btn{display:inline-block;background:var(--red);color:#fff;font-weight:700;font-size:14px;padding:13px 22px;border:0;border-radius:3px;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:hover{background:#e51f1f;transform:translateY(-1px)}
+.btn.sm{padding:10px 18px;font-size:13px}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,.22);color:#fff}
+.btn.ghost:hover{background:rgba(255,255,255,.07)}
+
+/* hero — single centered column: eyebrow, headline, device, then supporting copy */
+.hero{position:relative;overflow:hidden;background:var(--bg)}
+.hero-glow{position:absolute;inset:0;background:radial-gradient(ellipse 900px 560px at 78% -10%, rgba(255,49,49,.24), transparent 60%), radial-gradient(ellipse 700px 500px at 0% 100%, rgba(255,138,92,.12), transparent 55%);will-change:transform}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
+.hero-stack{max-width:660px;margin:0 auto;padding:84px 0 96px;position:relative;z-index:1;text-align:center}
+h1{font-size:clamp(32px,4.4vw,52px);font-weight:800;line-height:1.07;letter-spacing:-.03em;margin-top:18px;text-wrap:balance}
+.typed-line{font-family:'JetBrains Mono',monospace;font-size:14px;color:rgba(233,236,245,.62);margin-top:28px;letter-spacing:.01em}
+.typed-word{color:var(--red);display:inline-block;min-width:11ch;white-space:nowrap;text-align:left}
+.hero p{color:rgba(233,236,245,.72);font-size:17px;margin:16px auto 0;max-width:56ch}
+.hero-cta{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap;justify-content:center}
+.hero-note{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(233,236,245,.42);margin-top:22px;letter-spacing:.02em}
+
+/* hero visual — a real rugged handheld terminal (user-supplied product photo,
+   transparent PNG, free-use). Straight-on studio shot: the screen is a true flat
+   rectangle, so our own data sits inside it as a precisely aligned cover, not a
+   crooked overlay. Chips for the two headline stats float beside the device. */
+.device-stage{position:relative;width:440px;margin:44px auto 0}
+.device-glow{position:absolute;left:50%;top:44%;width:440px;height:440px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle, rgba(255,49,49,.30) 0%, rgba(255,49,49,.11) 34%, transparent 68%);z-index:0}
+.device-stage img{position:relative;z-index:1;width:100%;display:block;filter:drop-shadow(0 34px 54px rgba(0,0,0,.55))}
+.device-screen-cover{
+  position:absolute;z-index:2;left:34%;top:12.4%;width:32%;height:48.6%;
+  background:#070a13;border-radius:5%;
+  padding:8% 8% 6%;display:flex;flex-direction:column;text-align:left;
+}
+.device-screen-cover .ds-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.device-screen-cover .ds-title{font-size:15.5px;font-weight:800;color:#fff;margin-top:5px;line-height:1.15;word-break:break-word}
+.device-screen-cover .ds-sub{font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.5);margin-top:4px;line-height:1.3}
+.ds-scan-wrap{position:relative;margin-top:auto;height:30px;background:rgba(255,255,255,.05);border:1px dashed rgba(255,255,255,.2);border-radius:5px;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:1.6px}
+.ds-scan-wrap i{width:1.6px;height:13px;background:rgba(255,255,255,.32)}
+.ds-scan-wrap i:nth-child(3n){height:18px}
+.ds-scanline{position:absolute;left:0;right:0;top:3px;height:2px;background:linear-gradient(90deg,transparent,var(--red) 15%,var(--red) 85%,transparent);box-shadow:0 0 10px 2px rgba(255,49,49,.85);animation:ds-scan 1.8s ease-in-out infinite}
+@keyframes ds-scan{0%,100%{top:3px}50%{top:25px}}
+@media (prefers-reduced-motion: reduce){ .ds-scanline{animation:none;top:13px} }
+.device-screen-cover .ds-status{display:block;margin-top:7px;padding:4px 4px;border-radius:8px;background:rgba(74,222,128,.16);border:1px solid rgba(74,222,128,.32);color:#4ADE80;font-family:'JetBrains Mono',monospace;font-size:8px;text-align:center;line-height:1.3}
+.scan-chip{
+  position:absolute;z-index:3;background:rgba(8,11,20,.94);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.16);border-radius:14px;padding:15px 19px;
+  box-shadow:0 20px 40px -14px rgba(0,0,0,.7);
+}
+.scan-chip.sc-time{right:-46px;top:24%;text-align:center;padding:13px 20px}
+.scan-chip.sc-time .sc-time-val{font-size:30px;font-weight:800;background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent;font-variant-numeric:tabular-nums}
+.scan-chip.sc-time span{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;color:rgba(255,255,255,.55);margin-top:3px;text-transform:uppercase;letter-spacing:.06em}
+.scan-chip.sc-fsma{left:-54px;bottom:15%;padding:13px 18px}
+.scan-chip.sc-fsma .sc-fsma-val{font-size:19px;font-weight:800;color:#fff}
+.scan-chip.sc-fsma span{display:block;font-family:'JetBrains Mono',monospace;font-size:8.5px;color:rgba(255,255,255,.55);margin-top:2px}
+@media (max-width:620px){ .device-stage{width:300px} .scan-chip.sc-time{right:0} .scan-chip.sc-fsma{left:0} }
+
+/* elevated card treatment */
+.panel{
+  border-radius:14px;
+  background:linear-gradient(165deg, var(--sec-card-bg), var(--sec-bg));
+  border:1px solid var(--sec-card-brd);
+  box-shadow:0 14px 32px -22px rgba(0,0,0,.4);
+  transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+  position:relative;overflow:hidden;
+}
+.panel:hover{transform:translateY(-5px);box-shadow:0 22px 46px -18px rgba(255,49,49,.26)}
+.panel.accent-top{border-top:2px solid var(--red)}
+.panel.accent-top:hover{border-top-color:var(--amber)}
+.ghost-num{position:absolute;top:-14px;right:8px;font-family:'JetBrains Mono',monospace;font-size:92px;font-weight:800;color:var(--sec-ink);opacity:.05;line-height:1;pointer-events:none;user-select:none}
+
+/* proof strip */
+.proof{padding:44px 0}
+.proof-in{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.stat{padding:24px 22px}
+.stat b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat span{font-size:12.5px;color:var(--sec-ink-dimmer);font-weight:600;margin-top:4px;display:block}
+
+section{padding:86px 0;background:var(--sec-bg);color:var(--sec-ink)}
+section.tight{padding:64px 0}
+.sec-head{max-width:66ch}
+.rule{height:1px;background:var(--sec-line)}
+
+/* gap / pain pairs */
+.gap-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:44px}
+.gap-card{padding:30px}
+.gap-card h3{font-size:18px;font-weight:700;margin-bottom:10px;color:var(--sec-ink)}
+.gap-card p{font-size:14.5px;color:var(--sec-ink-dim)}
+
+/* comparison */
+.cmp{width:100%;border-collapse:collapse;margin-top:40px;font-size:14px;border-radius:10px;overflow:hidden}
+.cmp th,.cmp td{text-align:left;padding:16px 18px;border-bottom:1px solid var(--sec-line);vertical-align:top}
+.cmp thead th{font-size:11px;font-family:'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--sec-ink-dimmer);font-weight:500;border-bottom:2px solid var(--sec-line)}
+.cmp .ours{background:linear-gradient(160deg, rgba(255,49,49,.14), rgba(255,49,49,.03))}
+.cmp thead .ours{background:rgba(255,49,49,.16);color:var(--sec-ink)}
+.cmp td.ours{font-weight:600;color:var(--sec-ink)}
+.cmp .ok{color:#0f9d58}
+.tone-dark .cmp .ok{color:#4ADE80}
+.cmp .no{color:var(--sec-ink-dimmer)}
+.footnote{font-size:11.5px;color:var(--sec-ink-dimmer);margin-top:14px;font-family:'JetBrains Mono',monospace;line-height:1.6}
+
+/* services — bento */
+.bento{display:grid;grid-template-columns:1.15fr 1fr 1fr;gap:16px;margin-top:44px}
+.card{padding:34px 30px;display:flex;flex-direction:column}
+.card h3{font-size:19px;font-weight:700;letter-spacing:-.01em;margin-bottom:10px;color:var(--sec-ink)}
+.card p{font-size:14.5px;color:var(--sec-ink-dim)}
+.card .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:14px}
+.card ul{list-style:none;margin-top:16px;padding-top:16px;border-top:1px solid var(--sec-line)}
+.card li{font-size:13px;color:var(--sec-ink-dim);padding-left:16px;position:relative;margin-bottom:7px}
+.card li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:1.5px;background:var(--red)}
+
+/* support */
+.support{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:46px}
+.support div{padding:26px}
+.support h3{font-size:16px;font-weight:700;margin-bottom:8px;color:var(--sec-ink)}
+.support p{font-size:14px;color:var(--sec-ink-dim)}
+
+/* bilingual callout */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;margin-top:10px}
+.quotebox{padding:30px;border-radius:12px}
+.quotebox p{font-size:15.5px;line-height:1.6;color:var(--sec-ink)}
+.quotebox .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:14px}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:34px;margin-top:46px}
+.step{position:relative;padding-top:26px;border-top:1px solid var(--sec-line)}
+.step .n{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--red);font-weight:700;position:absolute;top:-9px;background:var(--sec-bg);padding-right:12px}
+.step h3{font-size:17px;font-weight:700;margin-bottom:9px;color:var(--sec-ink)}
+.step p{font-size:14.5px;color:var(--sec-ink-dim)}
+.step .when{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--sec-ink-dimmer);margin-top:12px;display:block}
+
+/* industries / focus areas */
+.inds{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.ind{padding:22px 20px}
+.ind h3{font-size:15.5px;font-weight:700;margin-bottom:7px;color:var(--sec-ink)}
+.ind p{font-size:13.5px;color:var(--sec-ink-dim)}
+
+/* faq */
+.faq{margin-top:40px;border-top:1px solid var(--sec-line)}
+details{border-bottom:1px solid var(--sec-line)}
+summary{cursor:pointer;padding:20px 40px 20px 0;font-weight:600;font-size:15.5px;list-style:none;position:relative;color:var(--sec-ink)}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";position:absolute;right:6px;top:17px;font-size:22px;color:var(--red);font-weight:400}
+details[open] summary::after{content:"\2013"}
+details p{padding:0 0 22px;font-size:14.5px;color:var(--sec-ink-dim);max-width:74ch}
+
+/* cta */
+.cta{position:relative;overflow:hidden;background:radial-gradient(ellipse 700px 420px at 15% 0%, rgba(255,49,49,.18), transparent 60%), var(--bg);padding:76px 0;color:var(--ink)}
+.cta-grid{display:grid;grid-template-columns:1fr .9fr;gap:56px;align-items:start;position:relative;z-index:1}
+.cta h2{font-size:clamp(26px,3.4vw,38px);font-weight:800;letter-spacing:-.02em;line-height:1.1;color:#fff}
+.cta p{color:rgba(233,236,245,.7);margin-top:16px;font-size:16px;max-width:46ch}
+.form{padding:28px;border-radius:12px}
+.form label{display:block;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);margin-bottom:6px}
+.form input,.form select{width:100%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:4px;color:#fff;padding:11px 13px;font-family:inherit;font-size:14px;margin-bottom:16px}
+.form input::placeholder{color:rgba(255,255,255,.3)}
+.form .btn{width:100%;margin-top:4px}
+.form .fine{font-size:11px;color:rgba(255,255,255,.4);margin-top:14px;line-height:1.5}
+
+footer{background:#060810;color:rgba(255,255,255,.45);padding:34px 0;font-size:12.5px;border-top:1px solid rgba(255,255,255,.10)}
+.foot-in{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;align-items:center}
+
+@media (max-width:960px){
+  .cta-grid,.split{grid-template-columns:1fr;gap:40px}
+  .hero-stack{padding:64px 0 70px}
+  .proof-in{grid-template-columns:repeat(2,1fr)}
+  .support,.steps,.bento,.gap-grid{grid-template-columns:1fr}
+  .inds{grid-template-columns:repeat(2,1fr)}
+  .navlinks{display:none}
+}
+@media (max-width:680px){
+  .wrap{padding:0 20px}
+  .inds{grid-template-columns:1fr}
+  .city{grid-template-columns:96px 1fr;gap:10px}
+  .axis{margin-left:106px}
+  .cmp{font-size:12.5px}
+  .cmp th,.cmp td{padding:12px 10px}
+  section{padding:56px 0}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#" class="brand" aria-label="Satustec Systems">SATUST<span class="mark" aria-hidden="true"></span>C</a>
+    <nav class="navlinks">
+      <a href="#">Dynamics 365</a>
+      <a href="#">Azure</a>
+      <a href="#">Copilot</a>
+      <a href="#">Power Platform</a>
+      <a href="#" class="on">Food &amp; Beverage</a>
+    </nav>
+    <a href="#talk" class="btn sm">Talk to a Specialist</a>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-glow" id="heroGlow"></div>
+  <canvas id="particles"></canvas>
+  <div class="wrap hero-stack">
+    <span class="eyebrow">Food &amp; Beverage &middot; Nearshore Microsoft delivery</span>
+    <h1>Audit-ready in minutes. <span class="grad-text">Not a recall scramble.</span></h1>
+
+    <div class="device-stage">
+      <div class="device-glow"></div>
+      <img src="assets/img/handheld-device.png" alt="Rugged handheld terminal">
+      <div class="device-screen-cover">
+        <span class="ds-eyebrow">Line 2 &middot; Batch</span>
+        <div class="ds-title">LOT-48291</div>
+        <div class="ds-sub">Best-by 03/14/27</div>
+        <div class="ds-scan-wrap">
+          <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+          <div class="ds-scanline"></div>
+        </div>
+        <span class="ds-status">&#10003; Approved</span>
+      </div>
+      <div class="scan-chip sc-time">
+        <div class="sc-time-val count" data-to="6.2" data-decimals="1" data-suffix="s">0.0s</div>
+        <span>Trace time</span>
+      </div>
+      <div class="scan-chip sc-fsma">
+        <div class="sc-fsma-val">22 mo.</div>
+        <span>FSMA 204 runway</span>
+      </div>
+    </div>
+
+    <p class="typed-line">Built for teams handling <span class="typed-word" id="typedWord"></span></p>
+    <p>Senior, Microsoft-certified consultants who help food &amp; beverage teams get full lot traceability and support that scales with peak season &mdash; delivered in your time zone, in English and Spanish, at about 40% of a U.S. partner's rate.</p>
+    <div class="hero-cta">
+      <a href="#talk" class="btn">Talk to a Nearshore Specialist</a>
+      <a href="#gap" class="btn ghost">See the traceability gap</a>
+    </div>
+    <p class="hero-note">FSMA 204 compliance deadline: July 2028 &middot; 20+ years delivering Microsoft solutions</p>
+  </div>
+</div>
+
+<!-- PROOF (light) -->
+<div class="proof tone-light" style="background:var(--sec-bg)">
+  <div class="wrap proof-in reveal-group">
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="60" data-suffix="%">0%</b><span>Lower cost than typical U.S. rates</span></div>
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="100" data-suffix="%">0%</b><span>Bilingual, senior consulting team</span></div>
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="20" data-suffix="+">0+</b><span>Years delivering Microsoft solutions</span></div>
+    <div class="panel accent-top stat reveal-item"><b class="count" data-to="4" data-suffix="">0</b><span>Microsoft Solutions Partner designations</span></div>
+  </div>
+</div>
+
+<!-- GAP (dark) -->
+<section id="gap" class="tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Where we see the gap in food &amp; beverage</span>
+      <h2 class="sec">The two problems that show up every audit season.</h2>
+    </div>
+    <div class="gap-grid reveal-group">
+      <div class="panel accent-top gap-card reveal-item">
+        <h3>Traceability still means workarounds</h3>
+        <p>Lot traceability and recall-readiness often live outside the ERP &mdash; in spreadsheets or manual processes that create risk during an audit or recall.</p>
+      </div>
+      <div class="panel accent-top gap-card reveal-item">
+        <h3>Support doesn't scale with peak season</h3>
+        <p>Support demand spikes right when production does &mdash; and staying staffed for that year-round is expensive and hard to justify.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW SATUSTEC HELPS (light) -->
+<section class="tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">How Satustec helps</span>
+      <h2 class="sec">Close the gap without a full re-implementation.</h2>
+      <p class="lede">Three engagements for a Microsoft environment that's already live on the plant floor. Most teams start with the assessment &mdash; it's the fastest way to know whether the fix is configuration, not a new system.</p>
+    </div>
+
+    <div class="bento reveal-group">
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">01</span>
+        <span class="tag">Diagnose</span>
+        <h3>Technical &amp; process assessments</h3>
+        <p>A clear-eyed evaluation of where lot traceability, recall-readiness, and catch-weight handling stand today &mdash; and a practical roadmap for what's next.</p>
+        <ul>
+          <li>Lot traceability traced end-to-end against how the floor actually runs</li>
+          <li>Recall-readiness gap analysis</li>
+          <li>Catch-weight and yield-variance review</li>
+          <li>Prioritized remediation roadmap with effort and cost</li>
+        </ul>
+      </div>
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">02</span>
+        <span class="tag">Improve</span>
+        <h3>Project-based consulting</h3>
+        <p>Full-cycle delivery of Dynamics 365, Power Platform, and Azure work &mdash; from planning to go-live &mdash; scoped to close the traceability gap, not rebuild the system.</p>
+        <ul>
+          <li>Lot traceability and recall workflow builds</li>
+          <li>Power BI reporting for QA and compliance</li>
+          <li>Integrations to plant floor and warehouse systems</li>
+        </ul>
+      </div>
+      <div class="card panel accent-top reveal-item">
+        <span class="ghost-num">03</span>
+        <span class="tag">Run</span>
+        <h3>Specialized support</h3>
+        <p>Ongoing, expert-level support that scales with your season &mdash; no need to staff for peak volume year-round.</p>
+        <ul>
+          <li>Support capacity that flexes up for peak season</li>
+          <li>Written SLAs by severity, named escalation path</li>
+          <li>Monthly ticket and root-cause reporting</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON (dark) -->
+<section id="compare" class="tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">The trade-off, honestly</span>
+      <h2 class="sec">Who fixes a traceability gap that's already live?</h2>
+      <p class="lede">Usually there are three candidates: the partner who built it, an offshore vendor, or your own QA and IT team on top of their day job. Here's the honest trade-off.</p>
+    </div>
+
+    <table class="cmp reveal-up">
+      <thead>
+        <tr>
+          <th></th>
+          <th>The partner who implemented it</th>
+          <th>Offshore outsourcer</th>
+          <th class="ours">Satustec Nearshore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>Cost of post-go-live work</th>
+          <td class="no">Premium change-order rates</td>
+          <td class="no">Lowest rate, highest rework</td>
+          <td class="ours ok">&asymp;60% below U.S. partner rates</td>
+        </tr>
+        <tr>
+          <th>Staffing for peak season</th>
+          <td class="no">Not their problem to solve</td>
+          <td class="no">Fixed capacity, hard to flex</td>
+          <td class="ours ok">Scales up for peak, down in the off-season</td>
+        </tr>
+        <tr>
+          <th>Overlap with your shift</th>
+          <td class="no">Full</td>
+          <td class="no">1&ndash;2 hrs, or someone works nights</td>
+          <td class="ours ok">Full &mdash; same time zone</td>
+        </tr>
+        <tr>
+          <th>Language on the plant floor</th>
+          <td class="no">English only</td>
+          <td class="no">English, with idiom friction</td>
+          <td class="ours ok">English or Spanish, by audience</td>
+        </tr>
+        <tr>
+          <th>Microsoft designations</th>
+          <td class="no">Varies</td>
+          <td class="no">Varies</td>
+          <td class="ours ok">Business Apps &middot; Data &amp; AI &middot; Modern Work &middot; Infrastructure</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footnote">Cost comparison is directional, based on blended senior-consultant rates in the TX and CA markets. We'll model your specific scope on the intro call.</p>
+  </div>
+</section>
+
+<!-- BILINGUAL (light) -->
+<section class="tight tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">A cause most assessments miss</span>
+      <h2 class="sec">Sometimes the system isn't broken. It's just not being used &mdash; in the language the floor speaks.</h2>
+    </div>
+    <div class="split">
+      <p class="lede reveal-up" style="margin-top:0">Across food &amp; beverage plants in Texas and California, a large share of the line leads, QA staff, and warehouse supervisors who have to <em>use</em> the system every day work in Spanish. When the original rollout trained them in English, the result looks like a traceability failure but isn't one: lot data gets entered late or in batches, and shadow spreadsheets quietly become the real system of record.<br><br>We interview, test, and retrain in whichever language the room speaks, and write documentation in both.</p>
+      <div class="quotebox glass reveal-up">
+        <span class="lbl">What that changes</span>
+        <p><strong>Diagnosis</strong> &mdash; you find out what people actually do instead of what the SOP says.<br><br>
+        <strong>Retraining</strong> &mdash; adoption recovers in weeks, often without touching the code.<br><br>
+        <strong>Audit readiness</strong> &mdash; lot data stops lying to you once the floor enters it the way the system expects.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SUPPORT (dark) -->
+<section class="tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow">Support, backed by data</span>
+      <h2 class="sec">Your QA team shouldn't be re-diagnosing a solved problem during a recall.</h2>
+    </div>
+    <div class="support reveal-group">
+      <div class="panel accent-top reveal-item">
+        <span class="ghost-num">2K+</span>
+        <h3>2,000+ resolved cases</h3>
+        <p>Two decades of real Microsoft support cases, indexed. Common issues get matched and fixed, not investigated from zero on your dime.</p>
+      </div>
+      <div class="panel accent-top reveal-item">
+        <h3>AI-assisted triage</h3>
+        <p>Level 1 requests are triaged by an AI agent before a consultant picks them up &mdash; faster first response during peak season.</p>
+      </div>
+      <div class="panel accent-top reveal-item">
+        <h3>SLAs and a named escalation path</h3>
+        <p>Written response and resolution targets by severity. Answered by a person who was on yesterday's call &mdash; critical when a recall clock is running.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOCUS AREAS (light) -->
+<section class="tight tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Built for the plant floor, not just the admin console</span>
+      <h2 class="sec">Four things that matter more here than in a typical ERP project.</h2>
+    </div>
+    <div class="inds reveal-group">
+      <div class="ind panel accent-top reveal-item"><h3>Lot traceability &amp; recall</h3><p>Full lot-to-lot tracking inside the ERP, not a spreadsheet bolted on for audit season.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>Catch-weight &amp; yield</h3><p>Variable-weight products handled accurately from receiving through invoicing.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>Peak-season scaling</h3><p>Support capacity that flexes with your production calendar, not a flat retainer.</p></div>
+      <div class="ind panel accent-top reveal-item"><h3>FSMA 204 readiness</h3><p>Compliance deadline is July 2028 &mdash; enough runway to fix this right, not in a scramble.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO GET STARTED (dark) -->
+<section class="tone-dark">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">How to get started</span>
+      <h2 class="sec">Find out if we're any good before you hand us the environment.</h2>
+      <p class="lede">The first engagement is deliberately small and useful even if it's the only one you ever buy from us.</p>
+    </div>
+    <div class="steps reveal-group">
+      <div class="step reveal-item">
+        <span class="n">STEP 01</span>
+        <h3>Intro call</h3>
+        <p>Understand where things stand today &mdash; traceability, recall-readiness, and where support is stretched thin.</p>
+        <span class="when">Day 0</span>
+      </div>
+      <div class="step reveal-item">
+        <span class="n">STEP 02</span>
+        <h3>Scoped proposal</h3>
+        <p>Clear coverage and pricing &mdash; you know exactly what's included before anything starts.</p>
+        <span class="when">Within a week</span>
+      </div>
+      <div class="step reveal-item">
+        <span class="n">STEP 03</span>
+        <h3>Start working</h3>
+        <p>No lengthy onboarding. We plug into your environment and your time zone from day one.</p>
+        <span class="when">No long ramp-up</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ (light) -->
+<section class="tight tone-light">
+  <div class="wrap">
+    <div class="sec-head reveal-up">
+      <span class="eyebrow soft">Before you ask</span>
+      <h2 class="sec">The questions procurement and QA always send back.</h2>
+    </div>
+    <div class="faq reveal-up">
+      <details open>
+        <summary>What if our ERP doesn't track lot data today?</summary>
+        <p>Usually it's a configuration gap, not a software limitation &mdash; Dynamics 365 and Business Central both support lot traceability natively. We evaluate what's actually turned on versus what's available before recommending any new build.</p>
+      </details>
+      <details>
+        <summary>Where is the team based, and who do we contract with?</summary>
+        <p>Satustec is a U.S. company headquartered in Houston, Texas. You contract with Satustec, you're invoiced by Satustec, and you escalate to Satustec. Our delivery center operates in Central Time from Mexico.</p>
+      </details>
+      <details>
+        <summary>How do you handle data security and IP ownership?</summary>
+        <p>All work product and IP transfer to you on payment, written into the master agreement. Consultants sign NDAs and work inside your tenant under your access controls.</p>
+      </details>
+      <details>
+        <summary>Can you work alongside the partner who implemented our system?</summary>
+        <p>Yes, and it's common. We define the RACI in week one so nothing falls between the two teams &mdash; and we don't require you to end that relationship to work with us.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta" id="talk">
+  <div class="wrap cta-grid">
+    <div class="reveal-up">
+      <span class="eyebrow">Next step</span>
+      <h2>Tell us what your traceability gap looks like.</h2>
+      <p>Thirty minutes, no deck. You'll leave with a point of view on your environment and a cost range you can take to your CFO &mdash; even if you don't move forward with us.</p>
+      <p class="hero-note" style="margin-top:26px">Dani Pe&ntilde;a, Business Development Manager &middot; dany@satustec.com<br>801 Travis Street, Houston, TX 77002</p>
+    </div>
+    <div class="form glass reveal-up">
+      <label for="f1">Work email</label>
+      <input id="f1" type="email" placeholder="you@company.com">
+      <label for="f2">Company</label>
+      <input id="f2" type="text" placeholder="Company name">
+      <label for="f3">What do you need help with?</label>
+      <select id="f3">
+        <option>A traceability / recall-readiness review</option>
+        <option>Peak-season support scaling</option>
+        <option>FSMA 204 readiness assessment</option>
+        <option>Enhancements or custom development</option>
+        <option>Something else</option>
+      </select>
+      <button class="btn" type="button">Talk to a Nearshore Specialist</button>
+      <p class="fine">We'll reply within one business day. No sequence, no drip &mdash; one human, one reply.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap foot-in">
+    <span>&copy; 2026 Satustec LLC &middot; Houston, TX</span>
+    <span>Microsoft Solutions Partner &mdash; Business Applications &middot; Data &amp; AI &middot; Modern Work &middot; Infrastructure</span>
+  </div>
+</footer>
+
+<script>
+/* typed cycling — grounded in this vertical's real pain points, not generic */
+try{
+  new Typed('#typedWord',{
+    strings:['lot traceability','recall readiness','peak-season volume','catch-weight accuracy'],
+    typeSpeed:42, backSpeed:26, backDelay:1600, loop:true,
+    cursorChar:'|', smartBackspace:true
+  });
+}catch(e){
+  document.getElementById('typedWord') && (document.getElementById('typedWord').textContent='lot traceability');
+}
+
+try{
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.querySelectorAll('.count').forEach(function(el){
+    var to=parseFloat(el.dataset.to), suffix=el.dataset.suffix||'', decimals=parseInt(el.dataset.decimals||'0',10), obj={val:0};
+    ScrollTrigger.create({
+      trigger:el, start:'top 90%', once:true,
+      onEnter:function(){
+        gsap.to(obj,{val:to,duration:1.3,ease:'power2.out',onUpdate:function(){el.textContent=obj.val.toFixed(decimals)+suffix;}});
+      }
+    });
+  });
+
+  document.querySelectorAll('.reveal-up').forEach(function(el){
+    gsap.set(el,{opacity:0,y:28});
+    ScrollTrigger.create({
+      trigger:el, start:'top 88%', once:true,
+      onEnter:function(){ gsap.to(el,{opacity:1,y:0,duration:.75,ease:'power2.out'}); }
+    });
+  });
+
+  document.querySelectorAll('.reveal-group').forEach(function(group){
+    var items=group.querySelectorAll('.reveal-item');
+    if(!items.length) return;
+    gsap.set(items,{opacity:0,y:26});
+    ScrollTrigger.create({
+      trigger:group, start:'top 85%', once:true,
+      onEnter:function(){ gsap.to(items,{opacity:1,y:0,duration:.65,ease:'power2.out',stagger:.11}); }
+    });
+  });
+
+  gsap.to('#heroGlow',{
+    yPercent:18, ease:'none',
+    scrollTrigger:{trigger:'.hero', start:'top top', end:'bottom top', scrub:true}
+  });
+}catch(e){}
+
+(function(){
+  var canvas=document.getElementById('particles');
+  if(!canvas) return;
+  var ctx=canvas.getContext('2d');
+  function resize(){canvas.width=canvas.clientWidth*devicePixelRatio;canvas.height=canvas.clientHeight*devicePixelRatio;}
+  resize(); window.addEventListener('resize',resize);
+  var N=60;
+  var pts=Array.from({length:N},function(){return{
+    x:Math.random()*canvas.width, y:Math.random()*canvas.height,
+    vx:(Math.random()-.5)*.25, vy:(Math.random()-.5)*.25, r:(Math.random()*1.4+.6)*devicePixelRatio
+  };});
+  var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function frame(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    for(var i=0;i<N;i++){
+      var p=pts[i];
+      if(!reduce){p.x+=p.vx;p.y+=p.vy;}
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+      for(var j=i+1;j<N;j++){
+        var q=pts[j], dx=p.x-q.x, dy=p.y-q.y, d=Math.sqrt(dx*dx+dy*dy), max=140*devicePixelRatio;
+        if(d<max){
+          ctx.strokeStyle='rgba(255,49,49,'+(0.12*(1-d/max))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke();
+        }
+      }
+      ctx.fillStyle='rgba(255,255,255,.55)';
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fill();
+    }
+    if(!reduce) requestAnimationFrame(frame);
+  }
+  frame();
+})();
+</script>
+</body>
+</html>
